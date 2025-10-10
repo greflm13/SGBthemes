@@ -1,4 +1,4 @@
-# Custom CSS Themes
+# Custom Themes for [StaticGalleryBuilder](https://github.com/greflm13/StaticGalleryBuilder)
 
 You can create custom Themes. They must at least include the following:
 
