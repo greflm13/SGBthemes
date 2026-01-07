@@ -1,0 +1,28 @@
+{
+    "folders": [
+        {
+            "path": "./",
+            "name": "StaticGalleryBuilder Themes"
+        }
+    ],
+    "settings": {
+        "python.analysis.typeCheckingMode": "basic"
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "args": [
+                    "${workspaceFolder}",
+                    "https://pictures.sorogon.eu/public/Example/"
+                ],
+                "console": "integratedTerminal",
+                "name": "Generate Themes previews",
+                "program": "${workspaceFolder}/generate_previews.py",
+                "request": "launch",
+                "type": "debugpy"
+            }
+        ],
+        "compounds": []
+    }
+}

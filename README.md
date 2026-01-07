@@ -81,6 +81,10 @@ Replace the SVG data URI (`url("data:image/svg+xml,...")`) with your desired SVG
 
 ![monokai-vibrant](screenshots/monokai-vibrant.png)
 
+### phthalo_green
+
+![phthalo_green](screenshots/phthalo_green.png)
+
 ### rainbow
 
 ![rainbow](screenshots/rainbow.png)
