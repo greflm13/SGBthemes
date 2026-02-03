@@ -9,7 +9,7 @@
   --color6: #7033ca;
   --color7: #ff778e;
   --bcolor1: #e2d9f8;
-  --bcolor2: #20123a;
+  --bcolor2: #20123b;
   --bcolor3: #2b1753;
   --bcolor4: #321c64;
   --gradient: linear-gradient(
@@ -38,14 +38,14 @@ body {
 
 .navbar {
   font-weight: 800;
-  color: var(--bcolor1);
+  color: var(--bcolor2);
   background-color: var(--color3);
   background-image: var(--gradient);
 }
 
 .navbar li a {
   font-weight: 800;
-  color: var(--bcolor1);
+  color: var(--bcolor2);
 }
 
 .navbar li a:hover {
