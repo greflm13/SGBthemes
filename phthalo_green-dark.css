@@ -52,7 +52,7 @@
 
 .folders a {
   font-weight: 600;
-  color: var(--bcolor3);
+  color: var(--bcolor4);
   text-decoration: none;
   font-family: "Roboto", sans-serif;
 }
@@ -89,7 +89,7 @@
 }
 
 .column img {
-  background-color: var(--bcolor4);
+  background-color: var(--color1);
 }
 
 #totop:hover {
@@ -151,8 +151,8 @@
 }
 
 body {
-  color: var(--bcolor3);
-  background-color: var(--bcolor1);
+  color: var(--color2);
+  background-color: var(--bcolor3);
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
