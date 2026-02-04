@@ -13,12 +13,12 @@ import urllib.request
 from typing import List
 from datetime import datetime
 from selenium import webdriver
-from pythonjsonlogger import jsonlogger
+from pythonjsonlogger import json as jsonlogger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
-SCRIPTDIR = os.path.dirname(os.path.realpath(__file__)).removesuffix(__package__)
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__)).removesuffix(__package__ if __package__ else "")
 LOG_DIR = os.path.join(SCRIPTDIR, "logs")
 LATEST_LOG_FILE = os.path.join(LOG_DIR, "latest.jsonl")
 
@@ -433,7 +433,7 @@ def css_color_to_hex(css_color: str) -> str:
 
 
 def replace_all(file, search_exp, replace_exp):
-    for line in fileinput.input(file, inplace=1):
+    for line in fileinput.input(file, inplace=True):
         line = re.sub(search_exp, replace_exp, line)
         sys.stdout.write(line)
 
