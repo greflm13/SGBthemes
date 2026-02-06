@@ -49,6 +49,10 @@ Replace the SVG data URI (`url("data:image/svg+xml,...")`) with your desired SVG
 
 ![autumn](screenshots/autumn.png)
 
+### carnation-dark
+
+![carnation-dark](screenshots/carnation-dark.png)
+
 ### carnation
 
 ![carnation](screenshots/carnation.png)
@@ -56,6 +60,10 @@ Replace the SVG data URI (`url("data:image/svg+xml,...")`) with your desired SVG
 ### catpuccin
 
 ![catpuccin](screenshots/catpuccin.png)
+
+### cornflower-dark
+
+![cornflower-dark](screenshots/cornflower-dark.png)
 
 ### cornflower
 
@@ -68,6 +76,10 @@ Replace the SVG data URI (`url("data:image/svg+xml,...")`) with your desired SVG
 ### default
 
 ![default](screenshots/default.png)
+
+### ivy-dark
+
+![ivy-dark](screenshots/ivy-dark.png)
 
 ### ivy
 
@@ -112,6 +124,10 @@ Replace the SVG data URI (`url("data:image/svg+xml,...")`) with your desired SVG
 ### summer
 
 ![summer](screenshots/summer.png)
+
+### sunflower-dark
+
+![sunflower-dark](screenshots/sunflower-dark.png)
 
 ### sunflower
 
