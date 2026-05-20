@@ -67,7 +67,7 @@ body {
 }
 
 .foldericon {
-  content: "themes/icons/catpuccin.svg.j2";
+  content: "icons/catpuccin.svg.j2";
 }
 
 .folders a {

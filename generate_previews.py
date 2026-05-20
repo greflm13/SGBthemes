@@ -1,22 +1,22 @@
-import os
-import re
-import sys
-import json
-import gzip
-import shutil
 import base64
-import logging
 import colorsys
 import fileinput
+import gzip
+import json
+import logging
+import os
+import re
+import shutil
+import sys
 import urllib.parse
 import urllib.request
-from typing import List
 from datetime import datetime
-from selenium import webdriver
+
 from pythonjsonlogger import json as jsonlogger
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__)).removesuffix(__package__ if __package__ else "")
 LOG_DIR = os.path.join(SCRIPTDIR, "logs")
@@ -182,7 +182,7 @@ def extract_colorscheme(theme_path: str) -> dict[str, str]:
     pattern = r"--(color[1-4]|bcolor1):\s*(#[0-9a-fA-F]+|rgba?\([^)]*\)|hsla?\([^)]*\)|[a-zA-Z]+);"
     colorscheme = {}
 
-    with open(theme_path, "r", encoding="utf-8") as f:
+    with open(theme_path, encoding="utf-8") as f:
         filecontent = f.read()
 
     matches = re.findall(pattern, filecontent)
@@ -255,28 +255,28 @@ def css_color_to_hex(css_color: str) -> str:
         return hex_color.lower()
 
     elif groups["rgb"]:
-        r = int(groups["r"].rstrip("%")) * 255 // 100 if "%" in groups["r"] else int(groups["r"])
-        g = int(groups["g"].rstrip("%")) * 255 // 100 if "%" in groups["g"] else int(groups["g"])
-        b = int(groups["b"].rstrip("%")) * 255 // 100 if "%" in groups["b"] else int(groups["b"])
-        a = float(groups["a"]) if groups["a"] else 1.0
-        if a < 1.0:
-            logger.debug("converting rgba color to hex", extra={"color": css_color, "r": r, "g": g, "b": b, "a": a})
-            return rgb_to_hex((r, g, b)) + f"{round(a * 255):02x}"
+        red = int(groups["r"].rstrip("%")) * 255 // 100 if "%" in groups["r"] else int(groups["r"])
+        green = int(groups["g"].rstrip("%")) * 255 // 100 if "%" in groups["g"] else int(groups["g"])
+        blue = int(groups["b"].rstrip("%")) * 255 // 100 if "%" in groups["b"] else int(groups["b"])
+        alpha = float(groups["a"]) if groups["a"] else 1.0
+        if alpha < 1.0:
+            logger.debug("converting rgba color to hex", extra={"color": css_color, "r": red, "g": green, "b": blue, "a": alpha})
+            return rgb_to_hex((red, green, blue)) + f"{round(alpha * 255):02x}"
         else:
-            logger.debug("converting rgb color to hex", extra={"color": css_color, "r": r, "g": g, "b": b})
-            return rgb_to_hex((r, g, b))
+            logger.debug("converting rgb color to hex", extra={"color": css_color, "r": red, "g": green, "b": blue})
+            return rgb_to_hex((red, green, blue))
 
     elif groups["hsl"]:
-        h = int(groups["h"])
-        s = int(groups["s"])
-        l = int(groups["l"])
-        a = float(groups["a"]) if groups["a"] else 1.0
-        rgb_color = hsl_to_rgb((h, s, l))
-        if a < 1.0:
-            logger.debug("converting hsla color to hex", extra={"color": css_color, "hsl": (h, s, l), "a": a})
-            return rgb_to_hex(rgb_color) + f"{round(a * 255):02x}"
+        hue = int(groups["h"])
+        saturation = int(groups["s"])
+        lightness = int(groups["l"])
+        alpha = float(groups["a"]) if groups["a"] else 1.0
+        rgb_color = hsl_to_rgb((hue, saturation, lightness))
+        if alpha < 1.0:
+            logger.debug("converting hsla color to hex", extra={"color": css_color, "hsl": (hue, saturation, lightness), "a": alpha})
+            return rgb_to_hex(rgb_color) + f"{round(alpha * 255):02x}"
         else:
-            logger.debug("converting hsl color to hex", extra={"color": css_color, "hsl": (h, s, l)})
+            logger.debug("converting hsl color to hex", extra={"color": css_color, "hsl": (hue, saturation, lightness)})
             return rgb_to_hex(rgb_color)
 
     # fmt: off
@@ -470,7 +470,7 @@ def take_screenshot(html_file_path: str, css_file: str, output_file: str, driver
         logger.info("removing current theme.css")
         driver.execute_script(remove_css_script)
 
-        with open(css_file, "r", encoding="utf-8") as f:
+        with open(css_file, encoding="utf-8") as f:
             logger.info("reading CSS file: %s", css_file)
             css_content = f.read()
 
@@ -488,7 +488,7 @@ def take_screenshot(html_file_path: str, css_file: str, output_file: str, driver
 
         if "url" not in folder_icon_content:
             logger.info("Reading foldericon svg")
-            with open(folder_icon_content.removeprefix("themes/"), "r", encoding="utf-8") as f:
+            with open(folder_icon_content.removeprefix("themes/"), encoding="utf-8") as f:
                 svg = f.read()
             if "svg.j2" in folder_icon_content:
                 logger.info("foldericon in theme file is a jinja2 template")
@@ -541,7 +541,7 @@ def create_preview(html_file_path: str, css_file: str, previews_folder: str):
         r'\s*?href=".*theme.css"\s*?',
         f' href="file://{path}previews/{basename}"',
     )
-    with open(css_file, "r", encoding="utf-8") as f:
+    with open(css_file, encoding="utf-8") as f:
         theme = f.read()
     split = theme.split(".foldericon {")
     split2 = split[1].split("}", maxsplit=1)
@@ -557,7 +557,7 @@ def create_preview(html_file_path: str, css_file: str, previews_folder: str):
         logger.info("foldericon in theme file, using it")
         shutil.copyfile(css_file, os.path.join(path, "previews", basename))
         return
-    with open(os.path.join(path, foldericon.removeprefix("themes/")), "r", encoding="utf-8") as f:
+    with open(os.path.join(path, foldericon.removeprefix("themes/")), encoding="utf-8") as f:
         logger.info("Reading foldericon svg")
         svg = f.read()
     if "svg.j2" in foldericon:
@@ -575,7 +575,7 @@ def create_preview(html_file_path: str, css_file: str, previews_folder: str):
     logger.info("preview created for %s", css_file)
 
 
-def write_readme(directory_path: str, themes: List[str]) -> None:
+def write_readme(directory_path: str, themes: list[str]) -> None:
     """
     Writes the README file with previews of included themes.
 
@@ -585,7 +585,7 @@ def write_readme(directory_path: str, themes: List[str]) -> None:
     """
     readme_path = os.path.join(directory_path, "README.md")
     try:
-        with open(readme_path, "r", encoding="utf-8") as f:
+        with open(readme_path, encoding="utf-8") as f:
             logger.info("reading README.md", extra={"file": readme_path})
             readme = f.read()
 
@@ -605,7 +605,7 @@ def write_readme(directory_path: str, themes: List[str]) -> None:
         logger.error("failed to write README.md: %s", e)
 
 
-def write_index(directory_path: str, themes: List[str]) -> None:
+def write_index(directory_path: str, themes: list[str]) -> None:
     with open(os.path.join(directory_path, "index.html"), "w", encoding="utf-8") as f:
         f.write(
             """<!DOCTYPE html>
